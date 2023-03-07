@@ -7,14 +7,17 @@ namespace UI.Abstract
 {
     internal abstract class JoystickAreaHandler : MonoBehaviour
     {
-        [Space]
-
         [Header("Joystick")]
         [SerializeField] private GameObject joystickGameObject;
         [SerializeField] private Transform joystickTransform;
         [SerializeField] private Transform knobTransform;
 
-        private float _maxKnobDistanceFromCenter = 48;
+        [Space]
+        [SerializeField] private Transform center;
+        [SerializeField] private Transform edgePoint;
+        
+
+        private float _maxKnobDistanceFromCenter;
         private Vector2 _joystickStartPosition;
 
         private Vector2 _joystickUpdatedPosition;
@@ -23,6 +26,8 @@ namespace UI.Abstract
 
         private void Start()
         {
+            _maxKnobDistanceFromCenter = Vector2.Distance(center.position, edgePoint.position);
+
             _joystickStartPosition = knobTransform.position;
             _joystickUpdatedPosition = _joystickStartPosition;
             joystickGameObject.SetActive(false);
