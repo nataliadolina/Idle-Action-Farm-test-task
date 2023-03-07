@@ -17,18 +17,10 @@ namespace UI.Abstract
         [SerializeField] private Transform joystickTransform;
         [SerializeField] private Transform knobTransform;
 
-        [Space]
-
-        [Header("Joysticks zones")]
-        [SerializeField] private UIRectangleZone2D activeJoystickZone;
-        [SerializeField] private UICircleZone2D joystickZone;
-
-        private float _maxKnobDistanceFromCenter;
+        private float _maxKnobDistanceFromCenter = 48;
         private Vector2 _joystickStartPosition;
 
         private Vector2 _joystickUpdatedPosition;
-
-        private Coroutine _updateJoystickDirectionCoroutine;
 
 #region MonoBehaviour
 
@@ -36,7 +28,6 @@ namespace UI.Abstract
         {
             _joystickStartPosition = knobTransform.position;
             _joystickUpdatedPosition = _joystickStartPosition;
-            _maxKnobDistanceFromCenter = joystickZone.Radius - 20;
             SetSubscriptions();
             joystickGameObject.SetActive(false);
         }
@@ -59,25 +50,25 @@ namespace UI.Abstract
         {
             joystickGameObject.SetActive(true);
             SetJoystickPosition();
-            _updateJoystickDirectionCoroutine = StartCoroutine(UpdateJoyctickDirection());
         }
 
         private void SetJoystickPosition()
         {
             Vector2 touchPosition = Input.mousePosition;
-            if (activeJoystickZone.IsPositionInsideZone(touchPosition))
-            {
-                joystickTransform.position = touchPosition;
-                _joystickUpdatedPosition = touchPosition;
-            }
+            joystickTransform.position = touchPosition;
+            _joystickUpdatedPosition = touchPosition;
+        }
+
+        private void SetKnobPosition()
+        {
+            Vector2 touchPosition = Input.mousePosition;
+            Vector3 knobPosition = GetKnobPositionByDirection(touchPosition - _joystickUpdatedPosition, Vector3.Distance(touchPosition, _joystickUpdatedPosition));
+            UpdateDirection(knobPosition);
         }
 
         private void ResetJoystick()
         {
-            StopCoroutine(_updateJoystickDirectionCoroutine);
-
             UpdatePlayerDirection(Vector2.zero);
-
             joystickGameObject.SetActive(false);
         }
 
@@ -87,22 +78,7 @@ namespace UI.Abstract
             Vector2 direction = (new Vector2(knobPosition.x, knobPosition.y) - _joystickUpdatedPosition) / _maxKnobDistanceFromCenter;
             UpdatePlayerDirection(direction);
         }
-
-#region IEnumerators
-
-        private IEnumerator UpdateJoyctickDirection()
-        {
-            while (true)
-            {
-                Vector2 touchPosition = Input.mousePosition;
-                Vector3 knobPosition = GetKnobPositionByDirection(touchPosition - _joystickUpdatedPosition, Vector3.Distance(touchPosition, _joystickUpdatedPosition));
-                UpdateDirection(knobPosition);
-
-                yield return new WaitForEndOfFrame();
-            }
-        }
-
-#endregion
+        
 
 #region Subscriptions
 
@@ -110,12 +86,14 @@ namespace UI.Abstract
         {
             _touchInputSystem.onIsUserTouchingScreenSetTrue += StartUpdateJoyctickDirection;
             _touchInputSystem.onIsUserTouchingScreenSetFalse += ResetJoystick;
+            _touchInputSystem.onUserTouchingScreenStay += SetKnobPosition;
         }
 
         private void ClearSubscriptions()
         {
             _touchInputSystem.onIsUserTouchingScreenSetTrue -= StartUpdateJoyctickDirection;
             _touchInputSystem.onIsUserTouchingScreenSetFalse -= ResetJoystick;
+            _touchInputSystem.onUserTouchingScreenStay -= SetKnobPosition;
         }
 
 #endregion

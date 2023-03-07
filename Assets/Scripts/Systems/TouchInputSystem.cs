@@ -10,6 +10,7 @@ namespace Systems
     {
         public event Action onIsUserTouchingScreenSetTrue;
         public event Action onIsUserTouchingScreenSetFalse;
+        public event Action onUserTouchingScreenStay;
 
         private bool _isUserTouchingScreen;
         private bool IsUserTouchingScreen
@@ -63,13 +64,24 @@ namespace Systems
             IsUserTouchingScreen = false;
         }
 
+        private void OnInputTouchStay()
+        {
+            if (!_isUserTouchingScreen)
+            {
+                return;
+            }
+
+            onUserTouchingScreenStay?.Invoke();
+        }
+
 #region Overrides
 
         private protected override void SetUpUpdateSettings()
         {
             _updateThreads = new List<InvokeRepeatingSettings> {
             new InvokeRepeatingSettings(nameof(SetIsInputTouchDown)),
-            new InvokeRepeatingSettings(nameof(SetIsInputTouchUp))
+            new InvokeRepeatingSettings(nameof(SetIsInputTouchUp)),
+            new InvokeRepeatingSettings(nameof(OnInputTouchStay))
             };
         }
 
