@@ -1,15 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using Systems;
+using Zenject;
 
 namespace UI.Abstract
 {
     internal abstract class JoystickAreaHandler : MonoBehaviour
     {
-        [SerializeField]
-        [Header("Dependencies")]
-        private TouchInputSystem _touchInputSystem;
-
         [Space]
 
         [Header("Joystick")]
@@ -28,7 +25,6 @@ namespace UI.Abstract
         {
             _joystickStartPosition = knobTransform.position;
             _joystickUpdatedPosition = _joystickStartPosition;
-            SetSubscriptions();
             joystickGameObject.SetActive(false);
         }
 
@@ -78,7 +74,18 @@ namespace UI.Abstract
             Vector2 direction = (new Vector2(knobPosition.x, knobPosition.y) - _joystickUpdatedPosition) / _maxKnobDistanceFromCenter;
             UpdatePlayerDirection(direction);
         }
-        
+
+#region Dependepcies
+
+        [Inject] private TouchInputSystem _touchInputSystem;
+
+        [Inject]
+        private void OnConstruct()
+        {
+            SetSubscriptions();
+        }
+
+#endregion
 
 #region Subscriptions
 

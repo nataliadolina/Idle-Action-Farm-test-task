@@ -1,5 +1,6 @@
 using UnityEngine;
-using UI;
+using UI.Interfaces;
+using Zenject;
 
 namespace Player
 {
@@ -7,39 +8,42 @@ namespace Player
     {
         [SerializeField]
         private PlayerAnimator _animator;
-        [SerializeField]
-        private PlayerDirectionInput _directionInput;
 
         [SerializeField]
-        private Transform _playerTransform;
+        private Transform playerTransform;
 
         [SerializeField]
         private float speed;
 
-        private float _speedRatio = 0f;
-
         private void ApplyDirection(Vector2 direction)
         {
-            _speedRatio = direction.magnitude;
-            _animator.SetIsRunning(_speedRatio);
+            float speedRatio = direction.magnitude;
+            _animator.SetIsRunning(speedRatio);
 
             if (direction != Vector2.zero)
             {
-                _playerTransform.forward = new Vector3(direction.x, 0, direction.y);
+                playerTransform.forward = new Vector3(direction.x, 0, direction.y);
             }
-            _playerTransform.Translate(Vector3.forward * speed * _speedRatio * Time.deltaTime);
+            playerTransform.Translate(Vector3.forward * speed * speedRatio * Time.deltaTime);
         }
 
 #region MonoBehaviour
 
-        private void Start()
-        {
-            SetSubscriptions();
-        }
-
         private void OnDestroy()
         {
             ClearSubscriptions();
+        }
+
+#endregion
+
+#region Dependencies
+
+        [Inject] private IPlayerDirectionInput _directionInput;
+
+        [Inject]
+        private void OnConstruct()
+        {
+            SetSubscriptions();
         }
 
 #endregion

@@ -45,8 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6632779872928566520}
-  _directionInput: {fileID: 0}
-  _playerTransform: {fileID: 6632779873543049514}
+  playerTransform: {fileID: 6632779873543049514}
   speed: 2
 --- !u!1001 &6632779874914629745
 PrefabInstance:

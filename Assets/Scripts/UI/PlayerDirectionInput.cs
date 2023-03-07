@@ -5,7 +5,7 @@ using UI.Interfaces;
 
 namespace UI
 {
-    internal class PlayerDirectionInput : JoystickAreaHandler, IPlayerDirectionInput
+    internal sealed class PlayerDirectionInput : JoystickAreaHandler, IPlayerDirectionInput
     {
         /// <summary>
         /// Vector2: direction
