@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace Player
 {
@@ -6,11 +7,15 @@ namespace Player
     {
         private readonly int StartRunningTrigger = Animator.StringToHash("Start running");
         private readonly int StopRunningTrigger = Animator.StringToHash("Stop running");
-        
+        private readonly int CutTrigger = Animator.StringToHash("Cut");
+
+        [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private PlayerCut playerCut;
+
         private Animator _animator;
 
         private bool _isRunning;
-        private bool SpeedRatio
+        private bool IsRunning
         {
             set
             {
@@ -22,14 +27,46 @@ namespace Player
             }
         }
 
+#region MonoBehaviour
+
         private void Start()
         {
             _animator = GetComponent<Animator>();
+            SetSubscriptions();
         }
 
-        internal void SetIsRunning(float ratio)
+        private void OnDestroy()
         {
-            SpeedRatio = ratio > 0;
+            ClearSubscriptions();
         }
+
+#endregion
+
+        private void SetIsRunning(bool isRunning)
+        {
+            IsRunning = isRunning;
+        }
+
+        private void Cut()
+        {
+            _animator.SetTrigger(CutTrigger);
+        }
+
+#region Subscriptions
+
+        private void SetSubscriptions()
+        {
+            playerMovement.onPlayerMove += SetIsRunning;
+            playerCut.onPlayerCut += Cut;
+        }
+
+        private void ClearSubscriptions()
+        {
+            playerMovement.onPlayerMove -= SetIsRunning;
+            playerCut.onPlayerCut -= Cut;
+        }
+
+#endregion
+
     }
 }

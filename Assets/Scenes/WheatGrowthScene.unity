@@ -405,36 +405,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281332116}
   m_CullTransparentMesh: 1
---- !u!1 &301725052
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 301725053}
-  m_Layer: 0
-  m_Name: PlaceToSlice
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &301725053
+--- !u!4 &301725053 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 301725053, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
+  m_PrefabInstance: {fileID: 840345866}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301725052}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.164, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 840345867}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &399431734
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSlice: {fileID: 840345868}
   slicePosition: {fileID: 301725053}
-  sliceNormal: {x: 0, y: 1, z: 1}
+  sliceNormal: {x: 0, y: 1, z: 0}
 --- !u!1001 &840345866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -588,17 +563,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 567598893, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3981890197104183442, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
       propertyPath: m_Name
       value: StaticWheat
-      objectReference: {fileID: 0}
-    - target: {fileID: 3981890197104183442, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4428325056614855727, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
       propertyPath: m_RootOrder
@@ -646,11 +613,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
---- !u!4 &840345867 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4428325056614855727, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
-  m_PrefabInstance: {fileID: 840345866}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &840345868 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1167821814433772821, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}

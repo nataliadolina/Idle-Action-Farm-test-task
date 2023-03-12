@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 using Systems;
 
-namespace DI
+namespace DI.Installers
 {
     internal sealed class GlobalSystemsInstaller : MonoInstaller
     {

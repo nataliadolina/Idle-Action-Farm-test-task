@@ -3,7 +3,7 @@ using Zenject;
 using UI;
 using UI.Interfaces;
 
-namespace DI
+namespace DI.Installers
 {
     internal sealed class UIInstaller : MonoInstaller
     {

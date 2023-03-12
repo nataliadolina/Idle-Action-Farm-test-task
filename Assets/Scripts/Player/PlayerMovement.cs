@@ -1,13 +1,16 @@
 using UnityEngine;
 using UI.Interfaces;
 using Zenject;
+using System;
 
 namespace Player
 {
     internal class PlayerMovement : MonoBehaviour
     {
-        [SerializeField]
-        private PlayerAnimator _animator;
+        /// <summary>
+        /// bool - is player moving?
+        /// </summary>
+        internal event Action<bool> onPlayerMove;
 
         [SerializeField]
         private Transform playerTransform;
@@ -17,14 +20,17 @@ namespace Player
 
         private void ApplyDirection(Vector2 direction)
         {
-            float speedRatio = direction.magnitude;
-            _animator.SetIsRunning(speedRatio);
-
-            if (direction != Vector2.zero)
+            if (direction == Vector2.zero)
             {
-                playerTransform.forward = new Vector3(direction.x, 0, direction.y);
+                onPlayerMove?.Invoke(false);
+                return;
             }
+
+            float speedRatio = direction.magnitude;
+            playerTransform.forward = new Vector3(direction.x, 0, direction.y);
             playerTransform.Translate(Vector3.forward * speed * speedRatio * Time.deltaTime);
+
+            onPlayerMove?.Invoke(true);
         }
 
 #region MonoBehaviour
