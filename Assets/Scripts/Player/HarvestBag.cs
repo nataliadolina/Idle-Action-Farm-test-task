@@ -11,19 +11,19 @@ namespace Player
         internal event Action<int> onHarvestBlockAddToStack;
 
         [SerializeField]
-        private Vector3 maxStackScale;
+        private int blocksPerX;
         [SerializeField]
-        private Transform stackFixingPoint;
-        [SerializeField]
-        private Transform blocksStackTransform;
+        private int blocksPerY;
 
-        private GameObject _blocksStackGameObject;
+        [SerializeField]
+        private Vector3 blockInStackSize;
+
+        private Vector3 _blockInStackStartPosition;
         private int _blocksCount = 0;
 
         private void Start()
         {
-            _blocksStackGameObject = blocksStackTransform.gameObject;
-            _blocksStackGameObject.SetActive(false);
+            _blockInStackStartPosition = new Vector3(blockInStackSize.x/2, blockInStackSize.y / 2, -blockInStackSize.z / 2);
         }
 
         private void OnDestroy()
@@ -31,31 +31,32 @@ namespace Player
             ClearSubscriptions();
         }
 
-        private void AddWheatBlockToStack()
+        private void AddBlockToStack(Transform blockTransform, Rigidbody rigidbody)
         {
-            _blocksCount++;
-            SetStackScale();
-            onHarvestBlockAddToStack?.Invoke(_blocksCount);
+            rigidbody.isKinematic = true;
 
+            blockTransform.parent = transform;
+            blockTransform.localScale = blockInStackSize;
+            blockTransform.localRotation = Quaternion.identity;
+            blockTransform.localPosition = GetPositionInStack();
+
+            _blocksCount++;
             if (_blocksCount == _stackSize)
             {
                 ClearSubscriptions();
+                Debug.Log("Stack us full");
             }
         }
 
-        private void SetStackScale()
+        private Vector3 GetPositionInStack()
         {
-            if (!_blocksStackGameObject.activeSelf)
-            {
-                _blocksStackGameObject.SetActive(true);
-            }
-
-            Vector3 scale = new Vector3(maxStackScale.x, maxStackScale.y * _blocksCount / _stackSize, maxStackScale.z);
-            blocksStackTransform.localScale = scale;
-            blocksStackTransform.position = stackFixingPoint.position + Vector3.up * scale.y / 2;
+            float x = _blockInStackStartPosition.x + _blocksCount % blocksPerX * blockInStackSize.x;
+            float y = _blockInStackStartPosition.y + _blocksCount % (blocksPerX * blocksPerY) / blocksPerX * blockInStackSize.y;
+            float z = _blockInStackStartPosition.y - _blocksCount / (blocksPerX * blocksPerY) * blockInStackSize.z;
+            return new Vector3(x, y, z);
         }
 
-#region Dependencies
+#region Injections
 
         [Inject]
         private WheatBlock[] _wheatBlocks;
@@ -80,7 +81,7 @@ namespace Player
         {
             foreach (var wheatBlock in _wheatBlocks)
             {
-                wheatBlock.onAddWheatBlockToStack += AddWheatBlockToStack;
+                wheatBlock.onAddWheatBlockToStack += AddBlockToStack;
             }
         }
 
@@ -88,7 +89,7 @@ namespace Player
         {
             foreach (var wheatBlock in _wheatBlocks)
             {
-                wheatBlock.onAddWheatBlockToStack -= AddWheatBlockToStack;
+                wheatBlock.onAddWheatBlockToStack -= AddBlockToStack;
             }
         }
 

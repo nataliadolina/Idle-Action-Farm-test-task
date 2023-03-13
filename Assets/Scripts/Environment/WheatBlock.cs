@@ -6,7 +6,7 @@ namespace Environment
 {
     internal sealed class WheatBlock : MonoBehaviour
     {
-        internal event Action onAddWheatBlockToStack;
+        internal event Action<Transform, Rigidbody> onAddWheatBlockToStack;
 
         [SerializeField]
         private WheatColliderCutReceiver wheatColliderCutReceiver;
@@ -48,7 +48,7 @@ namespace Environment
             if (collision.collider.CompareTag("Player"))
             {
                 Destroy(_gameObject);
-                onAddWheatBlockToStack?.Invoke();
+                onAddWheatBlockToStack?.Invoke(transform, _rigidBody);
             }
         }
 
