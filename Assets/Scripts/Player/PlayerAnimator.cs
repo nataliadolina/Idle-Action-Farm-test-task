@@ -17,7 +17,7 @@ namespace Player
 
         [SerializeField] private PlayerStateHandler playerStateHandler;
 
-        private bool _isRunning;
+        private bool _isRunning = false;
         private bool IsRunning
         {
             set

@@ -22,6 +22,7 @@ namespace UI.Abstract
         private Vector2 _joystickStartPosition;
 
         private Vector2 _joystickUpdatedPosition;
+        private bool _shouldUpdateDirection = false;
 
 #region MonoBehaviour
 
@@ -50,20 +51,32 @@ namespace UI.Abstract
 
         private void StartUpdateJoyctickDirection()
         {
+            Vector2 touchPosition = Input.mousePosition;
+
+            if (!joystickRectangleZone.IsPositionInsideZone(touchPosition))
+            {
+                _shouldUpdateDirection = false;
+                return;
+            }
+
+            _shouldUpdateDirection = true;
             joystickGameObject.SetActive(true);
-            SetJoystickPosition();
+            SetJoystickPosition(touchPosition);
         }
 
-        private void SetJoystickPosition()
+        private void SetJoystickPosition(Vector2 touchPosition)
         {
-            Vector2 touchPosition = Input.mousePosition;
-            Vector2 joystickClampedPosition = joystickRectangleZone.ClampPosition(touchPosition);
-            joystickTransform.position = joystickClampedPosition;
-            _joystickUpdatedPosition = joystickClampedPosition;
+            joystickTransform.position = touchPosition;
+            _joystickUpdatedPosition = touchPosition;
         }
 
         private void SetKnobPosition()
         {
+            if (!_shouldUpdateDirection)
+            {
+                return;
+            }
+
             Vector2 touchPosition = Input.mousePosition;
             Vector3 knobPosition = GetKnobPositionByDirection(touchPosition - _joystickUpdatedPosition, Vector3.Distance(touchPosition, _joystickUpdatedPosition));
             UpdateDirection(knobPosition);
@@ -82,7 +95,7 @@ namespace UI.Abstract
             UpdatePlayerDirection(direction);
         }
 
-#region Dependepcies
+#region Injections
 
         [Inject] private TouchInputSystem _touchInputSystem;
 

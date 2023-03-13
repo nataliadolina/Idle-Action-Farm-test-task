@@ -14,14 +14,14 @@ namespace UI
         [SerializeField]
         private RectTransform up;
 
-        internal Vector2 ClampPosition(Vector2 position)
+        internal bool IsPositionInsideZone(Vector2 position)
         {
             float minPositionX = left.position.x;
             float maxPositionX = right.position.x;
             float minPositionY = down.position.y;
             float maxPositionY = up.position.y;
 
-            return new Vector2(Mathf.Clamp(position.x, minPositionX, maxPositionX), Mathf.Clamp(position.y, minPositionY, maxPositionY));
+            return position.x > minPositionX && position.x < maxPositionX && position.y > minPositionY && position.y < maxPositionY;
         }
     }
 }

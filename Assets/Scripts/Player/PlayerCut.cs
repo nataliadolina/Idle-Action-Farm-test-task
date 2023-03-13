@@ -1,5 +1,7 @@
 using UnityEngine;
+using Zenject;
 using Player.Enums;
+using UI.Interfaces;
 
 namespace Player
 {
@@ -27,14 +29,6 @@ namespace Player
 
 #endregion
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Cut();
-            }
-        }
-
         private void Cut()
         {
             if (playerStateHandler.CurrentState != PlayerStates.Idle & playerStateHandler.CurrentState != PlayerStates.Moving)
@@ -55,18 +49,28 @@ namespace Player
             instrument.SetActive(false);
         }
 
+#region Injections
+
+        [Inject]
+        private ICutInput _cutInput;
+
+#endregion
+
 #region Subscriptions
 
         private void SetSubscriptions()
         {
             playerAnimator.onCutAnimationStartedPlaying += SetInstrumentActive;
             playerAnimator.onCutAnimationStoppedPlaying += SetInstrumentInactive;
+            _cutInput.onCutButtonPressed += Cut;
+
         }
 
         private void ClearSubscriptions()
         {
             playerAnimator.onCutAnimationStartedPlaying -= SetInstrumentActive;
             playerAnimator.onCutAnimationStoppedPlaying -= SetInstrumentInactive;
+            _cutInput.onCutButtonPressed -= Cut;
         }
 
 #endregion
