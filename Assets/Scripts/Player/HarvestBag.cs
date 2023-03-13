@@ -1,13 +1,15 @@
 using UnityEngine;
 using Zenject;
 using Environment;
-using System.Collections.Generic;
 using Utilities.Configuration;
+using System;
 
 namespace Player
 {
     internal class HarvestBag : MonoBehaviour
     {
+        internal event Action<int> onHarvestBlockAddToStack;
+
         [SerializeField]
         private Vector3 maxStackScale;
         [SerializeField]
@@ -33,6 +35,12 @@ namespace Player
         {
             _blocksCount++;
             SetStackScale();
+            onHarvestBlockAddToStack?.Invoke(_blocksCount);
+
+            if (_blocksCount == _stackSize)
+            {
+                ClearSubscriptions();
+            }
         }
 
         private void SetStackScale()
