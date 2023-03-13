@@ -47,7 +47,6 @@ namespace Environment
         {
             if (collision.collider.CompareTag("Player"))
             {
-                Destroy(_gameObject);
                 onAddWheatBlockToStack?.Invoke(transform, _rigidBody);
             }
         }

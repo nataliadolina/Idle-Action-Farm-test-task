@@ -41,6 +41,7 @@ namespace Player
             blockTransform.localPosition = GetPositionInStack();
 
             _blocksCount++;
+            onHarvestBlockAddToStack?.Invoke(_blocksCount);
             if (_blocksCount == _stackSize)
             {
                 ClearSubscriptions();
