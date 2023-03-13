@@ -1,21 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
+using Player.Enums;
 
 namespace Player
 {
     internal sealed class PlayerCut : MonoBehaviour
     {
-        internal event Action onPlayerCut;
-
         [SerializeField]
         private GameObject instrument;
+        [SerializeField]
+        private PlayerAnimator playerAnimator;
+        [SerializeField]
+        private PlayerStateHandler playerStateHandler;
+
+#region MonoBehaviour
 
         private void Start()
         {
             instrument.SetActive(false);
+            SetSubscriptions();
         }
+
+        private void OnDestroy()
+        {
+            ClearSubscriptions();
+        }
+
+#endregion
 
         private void Update()
         {
@@ -27,13 +37,39 @@ namespace Player
 
         private void Cut()
         {
-            instrument.SetActive(true);
-            onPlayerCut?.Invoke();
+            if (playerStateHandler.CurrentState != PlayerStates.Idle & playerStateHandler.CurrentState != PlayerStates.Moving)
+            {
+                return;
+            }
+
+            playerStateHandler.CurrentState = PlayerStates.Cutting;
         }
 
         private void SetInstrumentActive()
         {
-            instrument.SetActive(!instrument.activeSelf);
+            instrument.SetActive(true);
         }
+
+        private void SetInstrumentInactive()
+        {
+            instrument.SetActive(false);
+        }
+
+#region Subscriptions
+
+        private void SetSubscriptions()
+        {
+            playerAnimator.onCutAnimationStartedPlaying += SetInstrumentActive;
+            playerAnimator.onCutAnimationStoppedPlaying += SetInstrumentInactive;
+        }
+
+        private void ClearSubscriptions()
+        {
+            playerAnimator.onCutAnimationStartedPlaying -= SetInstrumentActive;
+            playerAnimator.onCutAnimationStoppedPlaying -= SetInstrumentInactive;
+        }
+
+#endregion
+
     }
 }

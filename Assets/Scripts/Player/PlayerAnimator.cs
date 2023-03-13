@@ -1,18 +1,23 @@
 using UnityEngine;
-using Zenject;
+using Abstract;
+using System;
+using Player.Enums;
 
 namespace Player
 {
-    internal class PlayerAnimator : MonoBehaviour
+    internal class PlayerAnimator : AnimatorHandlerBase
     {
+        internal event Action onCutAnimationStartedPlaying;
+        internal event Action onCutAnimationStoppedPlaying;
+        
         private readonly int StartRunningTrigger = Animator.StringToHash("Start running");
         private readonly int StopRunningTrigger = Animator.StringToHash("Stop running");
+        private readonly int RunningBool = Animator.StringToHash("Is running");
         private readonly int CutTrigger = Animator.StringToHash("Cut");
 
-        [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private PlayerCut playerCut;
+        private readonly int CutAnimationIndex = Animator.StringToHash("cut");
 
-        private Animator _animator;
+        [SerializeField] private PlayerStateHandler playerStateHandler;
 
         private bool _isRunning;
         private bool IsRunning
@@ -22,16 +27,15 @@ namespace Player
                 if (_isRunning != value)
                 {
                     _isRunning = value;
-                    _animator.SetTrigger(value ? StartRunningTrigger : StopRunningTrigger);
+                    _animator.SetBool(RunningBool, value);
                 }
             }
         }
 
 #region MonoBehaviour
 
-        private void Start()
+        private protected override void StartInternal()
         {
-            _animator = GetComponent<Animator>();
             SetSubscriptions();
         }
 
@@ -42,28 +46,48 @@ namespace Player
 
 #endregion
 
-        private void SetIsRunning(bool isRunning)
-        {
-            IsRunning = isRunning;
-        }
-
         private void Cut()
         {
+            onCutAnimationStartedPlaying?.Invoke();
             _animator.SetTrigger(CutTrigger);
+            WaitUntilAnimationStopPlaying(CutAnimationIndex);
+        }
+
+        private protected override void AnimationStoppedPlaying(int animationIndex)
+        {
+            if (animationIndex == CutAnimationIndex)
+            {
+                onCutAnimationStoppedPlaying?.Invoke();
+            }
+        }
+
+        private void AdjustAnimationToState(PlayerStates playerState)
+        {
+            switch (playerState)
+            {
+                case PlayerStates.Cutting:
+                    IsRunning = false;
+                    Cut();
+                    break;
+                case PlayerStates.Moving:
+                    IsRunning = true;
+                    break;
+                case PlayerStates.Idle:
+                    IsRunning = false;
+                    break;
+            }
         }
 
 #region Subscriptions
 
         private void SetSubscriptions()
         {
-            playerMovement.onPlayerMove += SetIsRunning;
-            playerCut.onPlayerCut += Cut;
+            playerStateHandler.onCurrentStateChanged += AdjustAnimationToState;
         }
 
         private void ClearSubscriptions()
         {
-            playerMovement.onPlayerMove -= SetIsRunning;
-            playerCut.onPlayerCut -= Cut;
+            playerStateHandler.onCurrentStateChanged -= AdjustAnimationToState;
         }
 
 #endregion

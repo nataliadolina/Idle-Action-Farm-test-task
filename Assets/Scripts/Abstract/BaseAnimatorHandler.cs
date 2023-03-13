@@ -6,7 +6,7 @@ namespace Abstract
 {
     internal abstract class AnimatorHandlerBase : MonoBehaviour
     {
-        private Animator _animator;
+        private protected Animator _animator;
         private readonly Dictionary<int, float> _animationIndexDurationMap = new Dictionary<int, float>();
 
 #region MonoBehaviour
@@ -15,9 +15,12 @@ namespace Abstract
         {
             _animator = GetComponentInChildren<Animator>();
             GetAnimationDurations();
+            StartInternal();
         }
 
 #endregion
+
+        private protected virtual void StartInternal() { }
 
         private void GetAnimationDurations()
         {
@@ -30,16 +33,15 @@ namespace Abstract
             }
         }
 
-        private protected void PlayAnimationByTriggerThenDestroyGameObject(GameObject gameObjectToDestroy, int animationIndex, int triggerIndex)
+        private protected void WaitUntilAnimationStopPlaying(int animationIndex)
         {
-            _animator.SetTrigger(triggerIndex);
             float duration = _animationIndexDurationMap[animationIndex];
-            StartCoroutine(WaitCoroutine(duration, gameObjectToDestroy, animationIndex));
+            StartCoroutine(WaitCoroutine(duration, animationIndex));
         }
 
         private protected virtual void AnimationStoppedPlaying(int animationIndex) { }
 
-        private IEnumerator WaitCoroutine(float duration, GameObject gameObjectToDestroy, int animationIndex)
+        private IEnumerator WaitCoroutine(float duration, int animationIndex)
         {
             float currentTime = 0;
 
@@ -50,7 +52,6 @@ namespace Abstract
             }
 
             AnimationStoppedPlaying(animationIndex);
-            Destroy(gameObjectToDestroy);
         }
 
     }

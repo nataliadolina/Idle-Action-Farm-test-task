@@ -1,36 +1,38 @@
 using UnityEngine;
 using UI.Interfaces;
 using Zenject;
-using System;
+using Player.Enums;
 
 namespace Player
 {
     internal class PlayerMovement : MonoBehaviour
     {
-        /// <summary>
-        /// bool - is player moving?
-        /// </summary>
-        internal event Action<bool> onPlayerMove;
-
         [SerializeField]
         private Transform playerTransform;
 
         [SerializeField]
         private float speed;
 
+        [SerializeField]
+        private PlayerStateHandler playerStateHandler;
+
         private void ApplyDirection(Vector2 direction)
         {
+            if (playerStateHandler.CurrentState == PlayerStates.Cutting)
+            {
+                return;
+            }
+
             if (direction == Vector2.zero)
             {
-                onPlayerMove?.Invoke(false);
+                playerStateHandler.CurrentState = PlayerStates.Idle;
                 return;
             }
 
             float speedRatio = direction.magnitude;
             playerTransform.forward = new Vector3(direction.x, 0, direction.y);
             playerTransform.Translate(Vector3.forward * speed * speedRatio * Time.deltaTime);
-
-            onPlayerMove?.Invoke(true);
+            playerStateHandler.CurrentState = PlayerStates.Moving;
         }
 
 #region MonoBehaviour
