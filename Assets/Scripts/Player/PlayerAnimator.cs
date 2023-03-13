@@ -10,8 +10,6 @@ namespace Player
         internal event Action onCutAnimationStartedPlaying;
         internal event Action onCutAnimationStoppedPlaying;
         
-        private readonly int StartRunningTrigger = Animator.StringToHash("Start running");
-        private readonly int StopRunningTrigger = Animator.StringToHash("Stop running");
         private readonly int RunningBool = Animator.StringToHash("Is running");
         private readonly int CutTrigger = Animator.StringToHash("Cut");
 
