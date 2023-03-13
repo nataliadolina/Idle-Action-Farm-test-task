@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using Systems;
 using Zenject;
@@ -15,7 +14,9 @@ namespace UI.Abstract
         [Space]
         [SerializeField] private Transform center;
         [SerializeField] private Transform edgePoint;
-        
+
+        [Space]
+        [SerializeField] private UIRectangleZone joystickRectangleZone;
 
         private float _maxKnobDistanceFromCenter;
         private Vector2 _joystickStartPosition;
@@ -56,8 +57,9 @@ namespace UI.Abstract
         private void SetJoystickPosition()
         {
             Vector2 touchPosition = Input.mousePosition;
-            joystickTransform.position = touchPosition;
-            _joystickUpdatedPosition = touchPosition;
+            Vector2 joystickClampedPosition = joystickRectangleZone.ClampPosition(touchPosition);
+            joystickTransform.position = joystickClampedPosition;
+            _joystickUpdatedPosition = joystickClampedPosition;
         }
 
         private void SetKnobPosition()
