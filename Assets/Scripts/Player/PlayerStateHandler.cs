@@ -33,6 +33,11 @@ namespace Player
             SetSubscriptions();
         }
 
+        private void OnDestroy()
+        {
+            ClearSubscriptions();
+        }
+
 #endregion
 
         private void ToStartState()
