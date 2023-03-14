@@ -1,22 +1,25 @@
 using UnityEngine;
 using Zenject;
 using System;
+using DI;
+using System.Collections;
 
 namespace Environment
 {
     internal sealed class WheatBlock : MonoBehaviour
     {
-        internal event Action<Transform, Rigidbody> onAddWheatBlockToStack;
-
-        [SerializeField]
-        private WheatColliderCutReceiver wheatColliderCutReceiver;
-
         [SerializeField]
         private float pushOnStartForce;
+        [SerializeField]
+        private Vector3 startLocalPosition;
 
         private Rigidbody _rigidBody;
-        private GameObject _gameObject;
         private Collider _collider;
+        private Transform _parentTransform;
+        private WheatColliderCutReceiver _wheatColliderCutReceiver;
+
+        private bool _hasCloned = false;
+        private Wheat _wheat;
 
 #region MonoBehaviour
 
@@ -30,18 +33,32 @@ namespace Environment
         [Inject]
         private void OnConstruct()
         {
+            _wheat = GetComponentInParent<Wheat>();
+            _wheatColliderCutReceiver = _wheat.WheatColliderCutReveiver;
+
             _rigidBody = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
 
-            _gameObject = gameObject;
-            _gameObject.SetActive(false);
+            _collider.enabled = false;
+            _rigidBody.isKinematic = true;
+            _hasCloned = false;
 
+            _parentTransform = transform.parent;
+            
             SetSubscriptions();
+
+            gameObject.SetActive(false);
         }
 
         private void Appear()
         {
-            _gameObject.SetActive(true);
+            _collider.enabled = true;
+
+            _collider.isTrigger = false;
+            _rigidBody.isKinematic = false;
+            transform.parent = null;
+
+            gameObject.SetActive(true);
             _rigidBody.AddForce(transform.forward * pushOnStartForce, ForceMode.Impulse);
         }
 
@@ -58,20 +75,41 @@ namespace Environment
         {
             if (other.CompareTag("Player"))
             {
-                onAddWheatBlockToStack?.Invoke(transform, _rigidBody);
+                _wheat.SendAddToStackEvent(this, transform, _rigidBody);
+                ClearSubscriptions();
+
+                if (!_hasCloned)
+                {
+                    StartCoroutine(WaitToInstanctiateNewPrefab());
+                }
+                
             }
+        }
+
+        private IEnumerator WaitToInstanctiateNewPrefab()
+        {
+            yield return new WaitForEndOfFrame();
+            InstantiateNewPrefab();
+        }
+
+        private void InstantiateNewPrefab()
+        {
+            GameObject newWheatBlock = ContainerRef.Container.InstantiatePrefab(Resources.Load<GameObject>("Prefabs/Environment/WheatBlock"), _parentTransform.position + startLocalPosition, Quaternion.identity, _parentTransform);
+            newWheatBlock.SetActive(false);
+
+            _hasCloned = true;
         }
 
 #region Subscriptions
 
         private void SetSubscriptions()
         {
-            wheatColliderCutReceiver.onWheatCut += Appear;
+            _wheatColliderCutReceiver.onWheatCut += Appear;
         }
 
         private void ClearSubscriptions()
         {
-            wheatColliderCutReceiver.onWheatCut -= Appear;
+            _wheatColliderCutReceiver.onWheatCut -= Appear;
         }
 
 #endregion

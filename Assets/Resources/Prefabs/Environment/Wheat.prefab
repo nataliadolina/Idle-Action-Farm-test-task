@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550235021537996338}
+  - component: {fileID: 6253253053704213613}
   m_Layer: 0
   m_Name: Wheat
   m_TagString: Untagged
@@ -35,6 +36,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6253253053704213613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550235021537996341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e3b60ad6e29bd45b6cf17614d8763e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheatColliderCutReveiver: {fileID: 550235022256301235}
 --- !u!1 &1559786355347478441
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +449,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8479281373069628132, guid: 2b888f6c94704a14caddb8c1ea7ee88a, type: 3}
+      propertyPath: parentTransform
+      value: 
+      objectReference: {fileID: 550235021537996338}
     - target: {fileID: 8479281373069628132, guid: 2b888f6c94704a14caddb8c1ea7ee88a, type: 3}
       propertyPath: wheatColliderCutReceiver
       value: 

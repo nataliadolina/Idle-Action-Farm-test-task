@@ -41,7 +41,7 @@ namespace UI
 #region Injections
 
         [Inject]
-        private HarvestContainer _harvestContainer;
+        private HarvestColliderCutReceiversContainer _harvestColliderCutReceiversContainer;
 
 #endregion
 
@@ -49,12 +49,12 @@ namespace UI
 
         private void SetSubscriptions()
         {
-            _harvestContainer.onIsThereAnyCuttableHarvestChanged += SetButtonGameObjectActive;
+            _harvestColliderCutReceiversContainer.onIsThereAnyCuttableHarvestChanged += SetButtonGameObjectActive;
         }
 
         private void ClearSubscriptions()
         {
-            _harvestContainer.onIsThereAnyCuttableHarvestChanged -= SetButtonGameObjectActive;
+            _harvestColliderCutReceiversContainer.onIsThereAnyCuttableHarvestChanged -= SetButtonGameObjectActive;
         }
 
 #endregion

@@ -6,7 +6,7 @@ using Environment;
 
 namespace Systems
 {
-    internal class HarvestContainer : MonoBehaviour
+    internal class HarvestColliderCutReceiversContainer : MonoBehaviour
     {
         internal event Action<bool> onIsThereAnyCuttableHarvestChanged;
         

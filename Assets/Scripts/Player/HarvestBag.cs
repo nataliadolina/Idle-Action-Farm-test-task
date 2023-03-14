@@ -3,6 +3,7 @@ using Zenject;
 using Environment;
 using Utilities.Configuration;
 using System;
+using System.Collections.Generic;
 
 namespace Player
 {
@@ -21,6 +22,8 @@ namespace Player
         private Vector3 _blockInStackStartPosition;
         private int _blocksCount = 0;
 
+        private List<WheatBlock> _blocksInStack = new List<WheatBlock>();
+
         private void Start()
         {
             _blockInStackStartPosition = new Vector3(blockInStackSize.x/2, blockInStackSize.y / 2, -blockInStackSize.z / 2);
@@ -31,8 +34,14 @@ namespace Player
             ClearSubscriptions();
         }
 
-        private void AddBlockToStack(Transform blockTransform, Rigidbody rigidbody)
+        private void AddBlockToStack(WheatBlock block, Transform blockTransform, Rigidbody rigidbody)
         {
+            if (_blocksInStack.Contains(block))
+            {
+                return;
+            }
+
+            _blocksInStack.Add(block);
             rigidbody.isKinematic = true;
 
             blockTransform.parent = transform;
@@ -60,7 +69,7 @@ namespace Player
 #region Injections
 
         [Inject]
-        private WheatBlock[] _wheatBlocks;
+        private Wheat[] _allWheat;
 
         [Inject]
         private PlayerSettingsConfig _playerSettingsConfig;
@@ -80,17 +89,17 @@ namespace Player
 
         private void SetSubscriptions()
         {
-            foreach (var wheatBlock in _wheatBlocks)
+            foreach (var wheat in _allWheat)
             {
-                wheatBlock.onAddWheatBlockToStack += AddBlockToStack;
+                wheat.onAddWheatBlockToStack += AddBlockToStack;
             }
         }
 
         private void ClearSubscriptions()
         {
-            foreach (var wheatBlock in _wheatBlocks)
+            foreach (var wheat in _allWheat)
             {
-                wheatBlock.onAddWheatBlockToStack -= AddBlockToStack;
+                wheat.onAddWheatBlockToStack -= AddBlockToStack;
             }
         }
 

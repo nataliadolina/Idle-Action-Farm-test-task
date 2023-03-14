@@ -7,15 +7,15 @@ namespace DI.Installers
     internal sealed class GlobalSystemsInstaller : MonoInstaller
     {
         [SerializeField] private TouchInputSystem touchInputSystem;
-        [SerializeField] private HarvestContainer harvestContainer;
+        [SerializeField] private HarvestColliderCutReceiversContainer harvestColliderCutReceiversContainer;
         
         public override void InstallBindings()
         {
             Container.Bind<TouchInputSystem>().FromInstance(touchInputSystem).AsSingle();
             Container.QueueForInject(touchInputSystem);
 
-            Container.Bind<HarvestContainer>().FromInstance(harvestContainer).AsSingle();
-            Container.QueueForInject(harvestContainer);
+            Container.Bind<HarvestColliderCutReceiversContainer>().FromInstance(harvestColliderCutReceiversContainer).AsSingle();
+            Container.QueueForInject(harvestColliderCutReceiversContainer);
         }
     }
 }

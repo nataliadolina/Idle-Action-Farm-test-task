@@ -127,3 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheatColliderCutReceiver: {fileID: 0}
   pushOnStartForce: 4
+  startLocalPosition: {x: 0, y: 0.3, z: 0}
+  wheatBlockPrefab: {fileID: 5950807903623664381}
+  thisGameObject: {fileID: 5950807903623664381}
