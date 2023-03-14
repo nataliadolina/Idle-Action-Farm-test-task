@@ -6,9 +6,6 @@ namespace Environment.Animations
     internal class WheatGrowthAnimator : MonoBehaviour
     {
         [SerializeField]
-        private WheatColliderCutReceiver wheatColliderCutReceiver;
-
-        [SerializeField]
         private float startScaleY;
         [SerializeField]
         private float endScaleY;
@@ -20,22 +17,26 @@ namespace Environment.Animations
 
         [SerializeField]
         private float growthDuration;
+
         private Sequence _animationSequence;
 
         private GameObject _gameObject;
 
+        private Transform _modelTransform;
+        private Renderer _renderer;
+        private Material _material;
+
+        internal float GrowthDuration { get => growthDuration; }
+
 #region MonoBehaviour
 
-        private void Start()
+        private void Awake()
         {
-            _gameObject = gameObject;
-            CreateAnimationSequence();
-            SetSubscriptions();
-        }
+            _modelTransform = GetComponent<Transform>();
+            _renderer = gameObject.GetComponent<Renderer>();
+            _material = _renderer.material;
 
-        private void OnDestroy()
-        {
-            ClearSubscriptions();
+            _gameObject = gameObject;
         }
 
 #endregion
@@ -43,56 +44,27 @@ namespace Environment.Animations
         private void CreateAnimationSequence()
         {
             _animationSequence = DOTween.Sequence();
+            _renderer.material.color = startColor;
+            _modelTransform.localScale = new Vector3(_modelTransform.localScale.x, startScaleY, _modelTransform.localScale.z);
 
-            Transform modelTransform = GetComponent<Transform>();
-            Renderer renderer = gameObject.GetComponent<Renderer>();
-            Material material = renderer.material;
-
-            renderer.material.color = startColor;
-
-            modelTransform.localScale = new Vector3(modelTransform.localScale.x, startScaleY, modelTransform.localScale.z);
-
-            var scaleTween = modelTransform.DOScaleY(endScaleY, growthDuration);
-            var doColor = material.DOColor(endColor, growthDuration);
+            var scaleTween = _modelTransform.DOScaleY(endScaleY, growthDuration);
+            var doColor = _material.DOColor(endColor, growthDuration);
 
             _animationSequence.Append(scaleTween);
             _animationSequence.Insert(0, doColor);
             _animationSequence.Pause();
-
-            _animationSequence.Complete();
         }
 
-        private void CompleteSequence()
+        internal void StartGrowth()
         {
             _gameObject.SetActive(true);
-            _animationSequence.Complete();
-        }
+            CreateAnimationSequence();
+            _animationSequence.TogglePause();
+        }            
 
-        private void StartGrowth()
+        internal void HideWheat()
         {
-            _gameObject.SetActive(true);
-            _animationSequence.Rewind();
-            _animationSequence.Play();
+            _gameObject.SetActive(false);  
         }
-
-        private void HideWheat()
-        {
-            _gameObject.SetActive(false);
-        }
-
-#region Subscriptions
-
-        private void SetSubscriptions()
-        {
-            wheatColliderCutReceiver.onWheatCut += HideWheat;
-        }
-
-        private void ClearSubscriptions()
-        {
-            wheatColliderCutReceiver.onWheatCut -= HideWheat;
-        }
-
-#endregion
-
     }
 }

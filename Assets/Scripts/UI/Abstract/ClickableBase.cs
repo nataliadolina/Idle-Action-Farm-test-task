@@ -11,14 +11,10 @@ namespace UI.Abstract
         {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(OnClick);
+            AwakeInternal();
         }
 
-        private void Start()
-        {
-            OnStartInternal();
-        }
-
-        private protected virtual void OnStartInternal() { }
+        private protected virtual void AwakeInternal() { }
 
         private protected abstract void OnClick();
     }

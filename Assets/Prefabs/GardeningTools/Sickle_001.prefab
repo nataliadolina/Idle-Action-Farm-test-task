@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 4122536980541368596}
   m_Layer: 0
   m_Name: Sickle_001
-  m_TagString: Untagged
+  m_TagString: Instrument
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

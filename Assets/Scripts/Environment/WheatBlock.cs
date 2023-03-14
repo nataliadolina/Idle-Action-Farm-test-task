@@ -16,6 +16,7 @@ namespace Environment
 
         private Rigidbody _rigidBody;
         private GameObject _gameObject;
+        private Collider _collider;
 
 #region MonoBehaviour
 
@@ -30,6 +31,7 @@ namespace Environment
         private void OnConstruct()
         {
             _rigidBody = GetComponent<Rigidbody>();
+            _collider = GetComponent<Collider>();
 
             _gameObject = gameObject;
             _gameObject.SetActive(false);
@@ -45,7 +47,16 @@ namespace Environment
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.CompareTag("Player"))
+            if (collision.collider.CompareTag("Ground"))
+            {
+                _collider.isTrigger = true;
+                _rigidBody.isKinematic = true;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
             {
                 onAddWheatBlockToStack?.Invoke(transform, _rigidBody);
             }

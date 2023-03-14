@@ -13,6 +13,13 @@ namespace DI.Installers
                 Container.Bind<WheatBlock>().FromInstance(instance).AsCached();
                 Container.QueueForInject(instance);
             }
+
+            WheatColliderCutReceiver[] cutReceivers = FindObjectsOfType<WheatColliderCutReceiver>(true);
+            foreach (var instance in cutReceivers)
+            {
+                Container.Bind<WheatColliderCutReceiver>().FromInstance(instance).AsCached();
+                Container.QueueForInject(instance);
+            }
         }
     }
 }

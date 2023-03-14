@@ -7,8 +7,9 @@ namespace Systems
     internal sealed class CutSystem : MonoBehaviour
     {
         [SerializeField]
-        private WheatColliderCutReceiver _wheatColliderCutReceiver;
-
+        private WheatColliderCutReceiver wheatColliderCutReceiver;
+        [SerializeField]
+        private GrowingWheat growingWheat;
         [Space]
 
         [SerializeField]
@@ -25,9 +26,11 @@ namespace Systems
 
         private GameObject _sliceGameObject;
 
+        internal GameObject SliceGameObject { get => _sliceGameObject; }
+
 #region MonoBehaviour
 
-        private void Start()
+        private void Awake()
         {
             _objectToSliceStartPosition = objectToCut.transform.position;
             _thisTransform = transform;
@@ -47,6 +50,16 @@ namespace Systems
         private void ShowSlice()
         {
             _sliceGameObject.SetActive(true);
+        }
+
+        private void HideSlice(bool isWheatGrowing)
+        {
+            if (!isWheatGrowing)
+            {
+                return;
+            }
+
+            _sliceGameObject.SetActive(false);
         }
 
         private void Cut()
@@ -86,12 +99,14 @@ namespace Systems
 
         private void SetSubscriptions()
         {
-            _wheatColliderCutReceiver.onWheatCut += ShowSlice;
+            wheatColliderCutReceiver.onWheatCut += ShowSlice;
+            growingWheat.onWheatIsGrowing += HideSlice;
         }
 
         private void ClearSubscriptions()
         {
-            _wheatColliderCutReceiver.onWheatCut -= ShowSlice;
+            wheatColliderCutReceiver.onWheatCut -= ShowSlice;
+            growingWheat.onWheatIsGrowing -= HideSlice;
         }
 
 #endregion

@@ -198,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4122536980541368597, guid: 2848a0806986778408b04c54197ae691, type: 3}
       propertyPath: m_TagString
-      value: Sickle
+      value: Instrument
       objectReference: {fileID: 0}
     - target: {fileID: 4122536980830170127, guid: 2848a0806986778408b04c54197ae691, type: 3}
       propertyPath: m_Enabled
