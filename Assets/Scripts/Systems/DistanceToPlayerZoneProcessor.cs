@@ -3,13 +3,13 @@ using System;
 
 namespace Systems
 {
-    internal class DistanceToSubjectZoneProcessor : MonoBehaviour
+    internal class DistanceToPlayerZoneProcessor : MonoBehaviour
     {
         internal event Action onAimEnterZone;
         internal event Action onAimExitZone;
 
         [SerializeField] private float maxVisibleDistance;
-        [SerializeField] private DistanceToSubjectDetector distanceToSubjectDetector;
+        [SerializeField] private DistanceToPlayerDetector distanceToPlayerDetector;
         [Space]
 
         private bool _isSubjectInsideZone = false;
@@ -58,12 +58,12 @@ namespace Systems
 
         private void SetSubscriptions()
         {
-            distanceToSubjectDetector.onDistanceToSubjectChange += SetIsSubjectInsideZone;
+            distanceToPlayerDetector.onDistanceToSubjectChange += SetIsSubjectInsideZone;
         }
 
         private void ClearSubscriptions()
         {
-            distanceToSubjectDetector.onDistanceToSubjectChange -= SetIsSubjectInsideZone;
+            distanceToPlayerDetector.onDistanceToSubjectChange -= SetIsSubjectInsideZone;
         }
 
 #endregion

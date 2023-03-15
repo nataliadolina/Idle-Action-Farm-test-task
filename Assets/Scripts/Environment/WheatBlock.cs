@@ -59,7 +59,7 @@ namespace Environment
             transform.parent = null;
 
             gameObject.SetActive(true);
-            _rigidBody.AddForce(transform.forward * pushOnStartForce, ForceMode.Impulse);
+            _rigidBody.AddForce(-transform.forward * pushOnStartForce, ForceMode.Impulse);
         }
 
         private void OnCollisionEnter(Collision collision)

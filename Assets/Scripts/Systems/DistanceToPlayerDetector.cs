@@ -4,10 +4,11 @@ using System;
 using Utilities.Behaviours;
 using Utilities.Utils;
 using Player;
+using Zenject;
 
 namespace Systems
 {
-    internal class DistanceToSubjectDetector : MultiThreadedUpdateMonoBehaviour
+    internal class DistanceToPlayerDetector : MultiThreadedUpdateMonoBehaviour
     {
         public event Action<float> onDistanceToSubjectChange;
 
@@ -17,7 +18,6 @@ namespace Systems
         private float _currentDistance;
 
         private bool _isDetectionAreaActive = true;
-        public Transform AimTransform { get => _aimTransform; }
 
         private float CurrentDistance
         {
@@ -29,21 +29,28 @@ namespace Systems
             }
         }
 
+#region MonoBehaviour
+
         private void Start()
         {
             _thisTransform = transform;
-            _aimTransform = FindObjectOfType<PlayerMovement>().transform;
-            StartInternal();
         }
 
-        private void UpdateDistance()
+        private void OnDestroy()
+        {
+            ClearSubscriptions();
+        }
+
+#endregion
+
+        private void UpdateDistance(Vector3 aimPosition)
         {
             if (!_isDetectionAreaActive)
             {
                 return;
             }
 
-            CurrentDistance = Vector3.Distance(_aimTransform.position, _thisTransform.position);
+            CurrentDistance = Vector3.Distance(aimPosition, _thisTransform.position);
         }
 
         private protected override void SetUpUpdateSettings()
@@ -57,5 +64,32 @@ namespace Systems
         {
             _isDetectionAreaActive = isEnabled;
         }
+
+#region Injections
+
+        [Inject]
+        private PlayerMovement _playerMovement;
+
+        [Inject]
+        private void OnConstruct()
+        {
+            SetSubscriptions();
+        }
+
+#endregion
+
+#region Subscriptions
+
+        private void SetSubscriptions()
+        {
+            _playerMovement.onPlayerTransformPositionChanged += UpdateDistance;
+        }
+
+        private void ClearSubscriptions()
+        {
+            _playerMovement.onPlayerTransformPositionChanged -= UpdateDistance;
+        }
+
+#endregion
     }
 }

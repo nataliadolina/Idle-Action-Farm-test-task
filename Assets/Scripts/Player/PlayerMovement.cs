@@ -2,11 +2,15 @@ using UnityEngine;
 using UI.Interfaces;
 using Zenject;
 using Player.Enums;
+using System;
 
 namespace Player
 {
     internal class PlayerMovement : MonoBehaviour
     {
+        //Vector3: player position
+        internal event Action<Vector3> onPlayerTransformPositionChanged;
+
         [SerializeField]
         private Transform playerTransform;
 
@@ -33,6 +37,7 @@ namespace Player
             playerTransform.forward = new Vector3(direction.x, 0, direction.y);
             playerTransform.Translate(Vector3.forward * speed * speedRatio * Time.deltaTime);
             playerStateHandler.CurrentState = PlayerStates.Moving;
+            onPlayerTransformPositionChanged?.Invoke(playerTransform.position);
         }
 
 #region MonoBehaviour

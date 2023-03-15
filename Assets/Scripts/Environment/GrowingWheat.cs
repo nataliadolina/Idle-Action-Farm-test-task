@@ -12,15 +12,17 @@ namespace Environment
         internal event Action<bool> onWheatIsGrowing;
 
         [SerializeField]
-        private WheatColliderCutReceiver wheatColliderCutReceiver;
-        [SerializeField]
         private float growAfterCutDelayInSeconds;
 
         private WheatGrowthAnimator _wheatGrowthAnimator;
         private float _growthAnimationDuration;
 
+        private WheatColliderCutReceiver _wheatColliderCutReceiver;
+
         private void Start()
         {
+            _wheatColliderCutReceiver = GetComponentInParent<Wheat>().WheatColliderCutReveiver;
+
             _wheatGrowthAnimator = GetComponentInChildren<WheatGrowthAnimator>();
             _growthAnimationDuration = _wheatGrowthAnimator.GrowthDuration;
             SetSubscriptions();
@@ -53,12 +55,12 @@ namespace Environment
 
         private void SetSubscriptions()
         {
-            wheatColliderCutReceiver.onWheatCut += OnPlayerCutWheat;
+            _wheatColliderCutReceiver.onWheatCut += OnPlayerCutWheat;
         }
 
         private void ClearSubscriptions()
         {
-            wheatColliderCutReceiver.onWheatCut -= OnPlayerCutWheat;
+            _wheatColliderCutReceiver.onWheatCut -= OnPlayerCutWheat;
         }
 
 #endregion

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2276594585104031603
+--- !u!1 &550235021537996341
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2276594585104031604}
-  - component: {fileID: 5688822471900194091}
+  - component: {fileID: 550235021537996338}
+  - component: {fileID: 6253253053704213613}
   m_Layer: 0
-  m_Name: Wheat
+  m_Name: WheatWithDistanceProcessor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2276594585104031604
+--- !u!4 &550235021537996338
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2276594585104031603}
+  m_GameObject: {fileID: 550235021537996341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7003870759013895747}
-  - {fileID: 5350653532849114282}
-  - {fileID: 2276594585996400116}
-  - {fileID: 3466402443494265758}
+  - {fileID: 8721355060626374405}
+  - {fileID: 5943505120076332524}
+  - {fileID: 550235022256301234}
+  - {fileID: 2891847285056070360}
+  - {fileID: 8457241607653620066}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5688822471900194091
+--- !u!114 &6253253053704213613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2276594585104031603}
+  m_GameObject: {fileID: 550235021537996341}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97e3b60ad6e29bd45b6cf17614d8763e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheatColliderCutReveiver: {fileID: 2276594585996400117}
-  growingWheat: {fileID: 3922812444033532865}
---- !u!1001 &2276594586575859019
+  wheatColliderCutReveiver: {fileID: 550235022256301235}
+  growingWheat: {fileID: 3335588712551395975}
+--- !u!1001 &550235021661314061
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2276594585104031604}
+    m_TransformParent: {fileID: 550235021537996338}
     m_Modifications:
     - target: {fileID: 6186047842835456481, guid: 88ea1f2c5bcd5a243b11a0c009d20fe2, type: 3}
       propertyPath: m_RootOrder
@@ -111,33 +112,33 @@ PrefabInstance:
     - target: {fileID: 7542917574241686978, guid: 88ea1f2c5bcd5a243b11a0c009d20fe2, type: 3}
       propertyPath: growingWheat
       value: 
-      objectReference: {fileID: 3335588712551395975, guid: 1999166d5688bad4fb356cdbfd1cd1ea, type: 3}
+      objectReference: {fileID: 3335588712551395975}
     - target: {fileID: 7542917574241686978, guid: 88ea1f2c5bcd5a243b11a0c009d20fe2, type: 3}
       propertyPath: wheatColliderCutReceiver
       value: 
-      objectReference: {fileID: 550235022256301235, guid: 1999166d5688bad4fb356cdbfd1cd1ea, type: 3}
+      objectReference: {fileID: 550235022256301235}
     - target: {fileID: 7542917574241686978, guid: 88ea1f2c5bcd5a243b11a0c009d20fe2, type: 3}
       propertyPath: _wheatColliderCutReceiver
       value: 
-      objectReference: {fileID: 550235022256301235, guid: 1999166d5688bad4fb356cdbfd1cd1ea, type: 3}
+      objectReference: {fileID: 550235022256301235}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ea1f2c5bcd5a243b11a0c009d20fe2, type: 3}
---- !u!4 &5350653532849114282 stripped
+--- !u!4 &5943505120076332524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186047842835456481, guid: 88ea1f2c5bcd5a243b11a0c009d20fe2, type: 3}
-  m_PrefabInstance: {fileID: 2276594586575859019}
+  m_PrefabInstance: {fileID: 550235021661314061}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2276594586802979968
+--- !u!1001 &550235021987575238
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2276594585104031604}
+    m_TransformParent: {fileID: 550235021537996338}
     m_Modifications:
     - target: {fileID: 4890411954152497601, guid: 36a67b2a612724e4fb2382114cf6e909, type: 3}
       propertyPath: wheatColliderCutReceiver
       value: 
-      objectReference: {fileID: 550235022256301235, guid: 1999166d5688bad4fb356cdbfd1cd1ea, type: 3}
+      objectReference: {fileID: 550235022256301235}
     - target: {fileID: 8402801881893631614, guid: 36a67b2a612724e4fb2382114cf6e909, type: 3}
       propertyPath: m_Name
       value: GrowingWheat
@@ -188,35 +189,228 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36a67b2a612724e4fb2382114cf6e909, type: 3}
---- !u!1 &7711474813410800382 stripped
+--- !u!1 &8304193634673918904 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8402801881893631614, guid: 36a67b2a612724e4fb2382114cf6e909, type: 3}
-  m_PrefabInstance: {fileID: 2276594586802979968}
+  m_PrefabInstance: {fileID: 550235021987575238}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7003870759013895747 stripped
+--- !u!4 &8721355060626374405 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9127294434893679299, guid: 36a67b2a612724e4fb2382114cf6e909, type: 3}
-  m_PrefabInstance: {fileID: 2276594586802979968}
+  m_PrefabInstance: {fileID: 550235021987575238}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3922812444033532865
+--- !u!114 &4935074469926999047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4890411954152497601, guid: 36a67b2a612724e4fb2382114cf6e909, type: 3}
+  m_PrefabInstance: {fileID: 550235021987575238}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f21b73020ef3fc4e98efb50d4471afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3335588712551395975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7711474813410800382}
+  m_GameObject: {fileID: 8304193634673918904}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5667a02094c6ba846a5bc75411079f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   growAfterCutDelayInSeconds: 3
---- !u!1001 &7101797188024844671
+--- !u!1001 &3217684850776858650
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2276594585104031604}
+    m_TransformParent: {fileID: 550235021537996338}
+    m_Modifications:
+    - target: {fileID: 4108120962670081971, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_Name
+      value: DistanceToPlayerProcessor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+--- !u!4 &8457241607653620066 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6483401420990912888, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+  m_PrefabInstance: {fileID: 3217684850776858650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5094485206023996584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7643941310952301746, guid: 762a83d7352713a4cba2cf402a41bc8a, type: 3}
+  m_PrefabInstance: {fileID: 3217684850776858650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950026953ca9a554380e0bd21996be3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &7739695746412553529
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 550235021537996338}
+    m_Modifications:
+    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_Size.x
+      value: 0.20447499
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9577478
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_Size.z
+      value: 0.2366941
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_Center.x
+      value: 0.013225228
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_Center.y
+      value: 0.4948061
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_Center.z
+      value: -0.03504312
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: growingWheat
+      value: 
+      objectReference: {fileID: 3335588712551395975}
+    - target: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: wheatGrowthAnimator
+      value: 
+      objectReference: {fileID: 4935074469926999047}
+    - target: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: cutDistanceToSubjectZoneProcessor
+      value: 
+      objectReference: {fileID: 5094485206023996584}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839147990006972812, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+      propertyPath: m_Name
+      value: WheatColliderCutReceiver
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+--- !u!4 &550235022256301234 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+  m_PrefabInstance: {fileID: 7739695746412553529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &550235022256301235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
+  m_PrefabInstance: {fileID: 7739695746412553529}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a192e82308bf6a94b911457405d8e0fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8841801416220782649
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 550235021537996338}
     m_Modifications:
     - target: {fileID: 5950807903623664353, guid: 2b888f6c94704a14caddb8c1ea7ee88a, type: 3}
       propertyPath: m_RootOrder
@@ -273,124 +467,15 @@ PrefabInstance:
     - target: {fileID: 8479281373069628132, guid: 2b888f6c94704a14caddb8c1ea7ee88a, type: 3}
       propertyPath: parentTransform
       value: 
-      objectReference: {fileID: 550235021537996338, guid: 1999166d5688bad4fb356cdbfd1cd1ea, type: 3}
+      objectReference: {fileID: 550235021537996338}
     - target: {fileID: 8479281373069628132, guid: 2b888f6c94704a14caddb8c1ea7ee88a, type: 3}
       propertyPath: wheatColliderCutReceiver
       value: 
-      objectReference: {fileID: 3864667736644515192, guid: 4c962483a4b9d6849ace3fdf2e901b42, type: 3}
+      objectReference: {fileID: 550235022256301235}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b888f6c94704a14caddb8c1ea7ee88a, type: 3}
---- !u!4 &3466402443494265758 stripped
+--- !u!4 &2891847285056070360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5950807903623664353, guid: 2b888f6c94704a14caddb8c1ea7ee88a, type: 3}
-  m_PrefabInstance: {fileID: 7101797188024844671}
+  m_PrefabInstance: {fileID: 8841801416220782649}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &8309749509897966719
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2276594585104031604}
-    m_Modifications:
-    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_Size.x
-      value: 0.20447499
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_Size.y
-      value: 0.9742248
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_Size.z
-      value: 0.2366941
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_Center.x
-      value: 0.013225228
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_Center.y
-      value: 0.5030446
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972809, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_Center.z
-      value: -0.03504312
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: growingWheat
-      value: 
-      objectReference: {fileID: 3335588712551395975, guid: 1999166d5688bad4fb356cdbfd1cd1ea, type: 3}
-    - target: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: wheatGrowthAnimator
-      value: 
-      objectReference: {fileID: 4935074469926999047, guid: 1999166d5688bad4fb356cdbfd1cd1ea, type: 3}
-    - target: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: cutDistanceToSubjectZoneProcessor
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7839147990006972812, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-      propertyPath: m_Name
-      value: WheatColliderCutReceiver
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
---- !u!4 &2276594585996400116 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7839147990006972811, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-  m_PrefabInstance: {fileID: 8309749509897966719}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2276594585996400117 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7839147990006972810, guid: 08d2f098b1016b947b660ce1a84dee89, type: 3}
-  m_PrefabInstance: {fileID: 8309749509897966719}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a192e82308bf6a94b911457405d8e0fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

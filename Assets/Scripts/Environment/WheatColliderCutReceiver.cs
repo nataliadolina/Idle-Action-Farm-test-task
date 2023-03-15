@@ -9,9 +9,7 @@ namespace Environment
         internal event Action<WheatColliderCutReceiver, bool> onHarvestCanBeCutChanged;
 
         [SerializeField]
-        private GrowingWheat growingWheat;
-        [SerializeField]
-        private DistanceToSubjectZoneProcessor cutDistanceToSubjectZoneProcessor;
+        private DistanceToPlayerZoneProcessor cutDistanceToPlayerZoneProcessor;
 
         internal event Action onWheatCut;
         private bool _canBeCut = false;
@@ -21,10 +19,16 @@ namespace Environment
         private bool _playerInCutZone;
         private bool _wheatIsRipe;
 
+        private GrowingWheat _growingWheat;
+        private WheatColliderCutReceiver _wheatCutReceiver;
+
 #region MonoBehaviour
 
         private void Start()
         {
+            Wheat parentContainer = GetComponentInParent<Wheat>();
+            _growingWheat = parentContainer.GrowingWheat;
+            _wheatCutReceiver = parentContainer.WheatColliderCutReveiver;
             SetSubscriptions();
         }
 
@@ -56,6 +60,11 @@ namespace Environment
             onHarvestCanBeCutChanged?.Invoke(this, _canBeCut);
         }
 
+        private void OnWheatCut()
+        {
+            OnWheatIsGrowingChanged(true);
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (_canBeCut && other.CompareTag("Instrument"))
@@ -68,16 +77,18 @@ namespace Environment
 
         private void SetSubscriptions()
         {
-            growingWheat.onWheatIsGrowing += OnWheatIsGrowingChanged;
-            cutDistanceToSubjectZoneProcessor.onAimEnterZone += OnPlayerEnteredCutZone;
-            cutDistanceToSubjectZoneProcessor.onAimExitZone += OnPlayerExitedCutZone;
+            _growingWheat.onWheatIsGrowing += OnWheatIsGrowingChanged;
+            cutDistanceToPlayerZoneProcessor.onAimEnterZone += OnPlayerEnteredCutZone;
+            cutDistanceToPlayerZoneProcessor.onAimExitZone += OnPlayerExitedCutZone;
+            _wheatCutReceiver.onWheatCut += OnWheatCut;
         }
 
         private void ClearSubscriptions()
         {
-            growingWheat.onWheatIsGrowing -= OnWheatIsGrowingChanged;
-            cutDistanceToSubjectZoneProcessor.onAimEnterZone -= OnPlayerEnteredCutZone;
-            cutDistanceToSubjectZoneProcessor.onAimExitZone -= OnPlayerExitedCutZone;
+            _growingWheat.onWheatIsGrowing -= OnWheatIsGrowingChanged;
+            cutDistanceToPlayerZoneProcessor.onAimEnterZone -= OnPlayerEnteredCutZone;
+            cutDistanceToPlayerZoneProcessor.onAimExitZone -= OnPlayerExitedCutZone;
+            _wheatCutReceiver.onWheatCut -= OnWheatCut;
         }
 
 #endregion

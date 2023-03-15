@@ -11,8 +11,11 @@ namespace Environment
 
         [SerializeField]
         private WheatColliderCutReceiver wheatColliderCutReveiver;
+        [SerializeField]
+        private GrowingWheat growingWheat;
 
         internal WheatColliderCutReceiver WheatColliderCutReveiver => wheatColliderCutReveiver;
+        internal GrowingWheat GrowingWheat => growingWheat;
 
         internal void SendAddToStackEvent(WheatBlock wheatBlock, Transform wheatTransform, Rigidbody rigidBody)
         {

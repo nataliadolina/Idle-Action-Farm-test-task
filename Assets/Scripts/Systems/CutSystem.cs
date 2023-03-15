@@ -7,12 +7,6 @@ namespace Systems
     internal sealed class CutSystem : MonoBehaviour
     {
         [SerializeField]
-        private WheatColliderCutReceiver wheatColliderCutReceiver;
-        [SerializeField]
-        private GrowingWheat growingWheat;
-        [Space]
-
-        [SerializeField]
         private GameObject objectToCut;
         [SerializeField]
         private Material referenceMaterial;
@@ -26,14 +20,23 @@ namespace Systems
 
         private GameObject _sliceGameObject;
 
+        private WheatColliderCutReceiver _wheatColliderCutReceiver;
+        private GrowingWheat _growingWheat;
+
         internal GameObject SliceGameObject { get => _sliceGameObject; }
 
 #region MonoBehaviour
 
         private void Awake()
         {
+            Wheat parentContainer = GetComponentInParent<Wheat>();
+
+            _wheatColliderCutReceiver = parentContainer.WheatColliderCutReveiver;
+            _growingWheat = parentContainer.GrowingWheat;
+
             _objectToSliceStartPosition = objectToCut.transform.position;
             _thisTransform = transform;
+            
             Cut();
             _sliceGameObject.SetActive(false);
 
@@ -99,14 +102,14 @@ namespace Systems
 
         private void SetSubscriptions()
         {
-            wheatColliderCutReceiver.onWheatCut += ShowSlice;
-            growingWheat.onWheatIsGrowing += HideSlice;
+            _wheatColliderCutReceiver.onWheatCut += ShowSlice;
+            _growingWheat.onWheatIsGrowing += HideSlice;
         }
 
         private void ClearSubscriptions()
         {
-            wheatColliderCutReceiver.onWheatCut -= ShowSlice;
-            growingWheat.onWheatIsGrowing -= HideSlice;
+            _wheatColliderCutReceiver.onWheatCut -= ShowSlice;
+            _growingWheat.onWheatIsGrowing -= HideSlice;
         }
 
 #endregion

@@ -18,9 +18,6 @@ namespace UI
         [SerializeField]
         private TMP_Text maxHarvestBlocksAmountText;
 
-        [SerializeField]
-        private HarvestBag harvestBag;
-
         private int _maxHarvestBlocksAmount;
 
         private void SetFillAmountAndText(int currentHarvestBlocksAmount)
@@ -49,6 +46,9 @@ namespace UI
         private PlayerSettingsConfig _playerSettingsConfig;
 
         [Inject]
+        private HarvestBag _harvestBag;
+
+        [Inject]
         private void OnConstruct()
         {
             _maxHarvestBlocksAmount = _playerSettingsConfig.HarvestStackSize;
@@ -62,12 +62,12 @@ namespace UI
 
         private void SetSubscriptions()
         {
-            harvestBag.onHarvestBlockAddToStack += SetFillAmountAndText;
+            _harvestBag.onHarvestBlockAddToStack += SetFillAmountAndText;
         }
 
         private void ClearSubscriptions()
         {
-            harvestBag.onHarvestBlockAddToStack -= SetFillAmountAndText;
+            _harvestBag.onHarvestBlockAddToStack -= SetFillAmountAndText;
         }
 
 #endregion
