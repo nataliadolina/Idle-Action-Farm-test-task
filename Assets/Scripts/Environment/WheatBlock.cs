@@ -60,6 +60,12 @@ namespace Environment
 
             gameObject.SetActive(true);
             _rigidBody.AddForce(-transform.forward * pushOnStartForce, ForceMode.Impulse);
+
+            if (!_hasCloned)
+            {
+                InstantiateNewPrefab();
+                ClearSubscriptions();
+            }
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -76,20 +82,7 @@ namespace Environment
             if (other.CompareTag("Player"))
             {
                 _wheat.SendAddToStackEvent(this, transform, _rigidBody);
-                ClearSubscriptions();
-
-                if (!_hasCloned)
-                {
-                    StartCoroutine(WaitToInstanctiateNewPrefab());
-                }
-                
             }
-        }
-
-        private IEnumerator WaitToInstanctiateNewPrefab()
-        {
-            yield return new WaitForEndOfFrame();
-            InstantiateNewPrefab();
         }
 
         private void InstantiateNewPrefab()
