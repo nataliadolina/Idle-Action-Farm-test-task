@@ -1,9 +1,13 @@
 using UnityEngine;
 using Zenject;
+using Environment.Animations;
 using Environment;
 using Utilities.Configuration;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using UI.Interfaces;
+using Utilities.Utils;
 
 namespace Player
 {
@@ -22,7 +26,9 @@ namespace Player
         private Vector3 _blockInStackStartPosition;
         private int _blocksCount = 0;
 
-        private List<WheatBlock> _blocksInStack = new List<WheatBlock>();
+        private int _currentBlock = 0;
+
+        private List<WheatBlockArgs> _blocksInStackArgs = new List<WheatBlockArgs>();
 
         private void Start()
         {
@@ -34,20 +40,25 @@ namespace Player
             ClearSubscriptions();
         }
 
-        private void AddBlockToStack(WheatBlock block, Transform blockTransform, Rigidbody rigidbody)
+        private void AddBlockToStack(WheatBlockArgs wheatBlockArgs)
         {
-            if (_blocksInStack.Contains(block))
+            if (_blocksInStackArgs.Contains(wheatBlockArgs))
             {
                 return;
             }
 
-            _blocksInStack.Add(block);
+            Rigidbody rigidbody = wheatBlockArgs.Rigidbody;
+            Transform blockTransform = wheatBlockArgs.BlockTransform;
+            WheatBlockFlightAnimation wheatBlockFlightAnimation = wheatBlockArgs.WheatBlockFlightAnimation;
+
+            _blocksInStackArgs.Add(wheatBlockArgs);
             rigidbody.isKinematic = true;
 
             blockTransform.parent = transform;
             blockTransform.localScale = blockInStackSize;
             blockTransform.localRotation = Quaternion.identity;
-            blockTransform.localPosition = GetPositionInStack();
+            Vector3 position = GetPositionInStack();
+            blockTransform.localPosition = position;
 
             _blocksCount++;
             onHarvestBlockAddToStack?.Invoke(_blocksCount);
@@ -66,10 +77,38 @@ namespace Player
             return new Vector3(x, y, z);
         }
 
+        private void ClearStack()
+        {
+            _currentBlock = _blocksCount - 1;
+            StartCoroutine(WaitToStartBlockAnimation());
+        }
+
+        private IEnumerator WaitToStartBlockAnimation()
+        {
+            while (_currentBlock > -1)
+            {
+                WheatBlockArgs currentArgs = _blocksInStackArgs[_currentBlock];
+
+                WheatBlockFlightAnimation wheatBlockArgs = currentArgs.WheatBlockFlightAnimation;
+                Transform curentBlockTransform = currentArgs.BlockTransform;
+                curentBlockTransform.parent = null;
+
+                yield return new WaitForSeconds(0.05f);
+                wheatBlockArgs.CreateAnimationSequenceAndPlay();
+                _blocksInStackArgs.Remove(currentArgs);
+                _currentBlock--;
+                _blocksCount--;
+                onHarvestBlockAddToStack?.Invoke(_blocksCount);
+            }
+        }
+
 #region Injections
 
         [Inject]
         private Wheat[] _allWheat;
+
+        [Inject]
+        private ISellInput _sellInput;
 
         [Inject]
         private PlayerSettingsConfig _playerSettingsConfig;
@@ -93,6 +132,8 @@ namespace Player
             {
                 wheat.onAddWheatBlockToStack += AddBlockToStack;
             }
+
+            _sellInput.onSellButtonPressed += ClearStack;
         }
 
         private void ClearSubscriptions()
@@ -101,6 +142,8 @@ namespace Player
             {
                 wheat.onAddWheatBlockToStack -= AddBlockToStack;
             }
+
+            _sellInput.onSellButtonPressed -= ClearStack;
         }
 
 #endregion

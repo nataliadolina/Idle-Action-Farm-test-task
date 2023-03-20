@@ -636,7 +636,6 @@ MonoBehaviour:
   fillImage: {fileID: 7744965276164790570}
   currentHarvestBlocksAmountText: {fileID: 7744965276848439431}
   maxHarvestBlocksAmountText: {fileID: 7744965274833084611}
-  harvestBag: {fileID: 0}
 --- !u!1 &7744965276835574363
 GameObject:
   m_ObjectHideFlags: 0

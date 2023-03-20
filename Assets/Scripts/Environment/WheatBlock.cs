@@ -3,6 +3,8 @@ using Zenject;
 using System;
 using DI;
 using System.Collections;
+using Environment.Animations;
+using Utilities.Utils;
 
 namespace Environment
 {
@@ -17,6 +19,7 @@ namespace Environment
         private Collider _collider;
         private Transform _parentTransform;
         private WheatColliderCutReceiver _wheatColliderCutReceiver;
+        private WheatBlockFlightAnimation _wheatBlockFlightAnimation;
 
         private bool _hasCloned = false;
         private Wheat _wheat;
@@ -38,6 +41,7 @@ namespace Environment
 
             _rigidBody = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
+            _wheatBlockFlightAnimation = GetComponentInChildren<WheatBlockFlightAnimation>();
 
             _collider.enabled = false;
             _rigidBody.isKinematic = true;
@@ -81,7 +85,7 @@ namespace Environment
         {
             if (other.CompareTag("Player"))
             {
-                _wheat.SendAddToStackEvent(this, transform, _rigidBody);
+                _wheat.SendAddToStackEvent(new WheatBlockArgs(_wheatBlockFlightAnimation, transform, _rigidBody));
             }
         }
 

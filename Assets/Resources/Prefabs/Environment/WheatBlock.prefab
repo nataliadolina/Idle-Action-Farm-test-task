@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5950807903623664354}
   - component: {fileID: 8795302576271475424}
   - component: {fileID: 8479281373069628132}
+  - component: {fileID: 7869881269910242602}
   m_Layer: 0
   m_Name: WheatBlock
   m_TagString: Untagged
@@ -125,8 +126,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d46cff472e80cc42be80bc46f2527d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheatColliderCutReceiver: {fileID: 0}
   pushOnStartForce: 4
   startLocalPosition: {x: 0, y: 0.3, z: 0}
-  wheatBlockPrefab: {fileID: 5950807903623664381}
-  thisGameObject: {fileID: 5950807903623664381}
+--- !u!114 &7869881269910242602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5950807903623664381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e92e1d5a64416643a091166d41f4ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetX: -4

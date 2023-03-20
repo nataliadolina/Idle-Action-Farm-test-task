@@ -2,6 +2,8 @@ using UnityEngine;
 using Zenject;
 using Systems;
 using Player;
+using System.ComponentModel;
+using Environment;
 
 namespace DI.Installers
 {
@@ -11,7 +13,8 @@ namespace DI.Installers
         [SerializeField] private HarvestColliderCutReceiversContainer harvestColliderCutReceiversContainer;
         [SerializeField] private HarvestBag harvestBag;
         [SerializeField] private PlayerMovement playerMovement;
-        
+        [SerializeField] private SellManager sellManager;
+
         public override void InstallBindings()
         {
             Container.Bind<PlayerMovement>().FromInstance(playerMovement).AsSingle();
@@ -25,6 +28,9 @@ namespace DI.Installers
 
             Container.Bind<HarvestColliderCutReceiversContainer>().FromInstance(harvestColliderCutReceiversContainer).AsSingle();
             Container.QueueForInject(harvestColliderCutReceiversContainer);
+
+            Container.Bind<SellManager>().FromInstance(sellManager).AsSingle();
+            Container.QueueForInject(sellManager);
         }
     }
 }

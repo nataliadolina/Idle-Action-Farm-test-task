@@ -181,6 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2289586026811822252}
+  - component: {fileID: 337079293}
   m_Layer: 5
   m_Name: CoinsCounter
   m_TagString: Untagged
@@ -209,6 +210,18 @@ RectTransform:
   m_AnchoredPosition: {x: 100.70105, y: -42.599854}
   m_SizeDelta: {x: 149, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &337079293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289586026811822255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147c4d1e7cff8bb4b841a4977e9631e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2289586027497338643
 GameObject:
   m_ObjectHideFlags: 0
