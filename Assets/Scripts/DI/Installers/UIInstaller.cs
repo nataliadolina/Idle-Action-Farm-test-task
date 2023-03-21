@@ -11,6 +11,7 @@ namespace DI.Installers
         [SerializeField] private CutInput cutInput;
         [SerializeField] private SellInput sellInput;
         [SerializeField] private CoinsCounterTransform coinsCounterTransform;
+        [SerializeField] private CoinsPool coinsPool;
 
         public override void InstallBindings()
         {
@@ -25,6 +26,9 @@ namespace DI.Installers
 
             Container.Bind<CoinsCounterTransform>().FromInstance(coinsCounterTransform).AsSingle();
             Container.QueueForInject(coinsCounterTransform);
+
+            Container.Bind<CoinsPool>().FromInstance(coinsPool).AsSingle();
+            Container.QueueForInject(coinsPool);
         }
     }
 }

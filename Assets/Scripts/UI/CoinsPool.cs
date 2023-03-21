@@ -3,11 +3,14 @@ using Utilities.Pool;
 using UI.Animations;
 using Zenject;
 using Environment;
+using System;
 
 namespace UI
 {
     internal class CoinsPool : MonoBehaviour
     {
+        internal event Action onCoinReleased;
+
         [SerializeField]
         private int poolSize;
         [SerializeField]
@@ -25,6 +28,11 @@ namespace UI
         {
             CoinImageFlightAnimation coinImageFlightAnimation = _poolMono.GetFreeELement();
             coinImageFlightAnimation.LaunchTween();
+        }
+
+        internal void SendCoinReleaseEvent()
+        {
+            onCoinReleased?.Invoke();
         }
 
 #region MonoBehaviour

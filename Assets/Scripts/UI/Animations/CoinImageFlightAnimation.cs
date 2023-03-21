@@ -14,6 +14,9 @@ namespace UI.Animations
 #region Injections
 
         private Transform _aimTransform;
+
+        [Inject]
+        private CoinsPool _coinsPool;
         
         [Inject]
         private void OnConstruct(CoinsCounterTransform coinsCounterTransform)
@@ -36,6 +39,7 @@ namespace UI.Animations
             yield return tween.WaitForKill();
             gameObject.transform.position = _startPosition;
             gameObject.SetActive(false);
+            _coinsPool.SendCoinReleaseEvent();
         }
 
         internal void LaunchTween()
