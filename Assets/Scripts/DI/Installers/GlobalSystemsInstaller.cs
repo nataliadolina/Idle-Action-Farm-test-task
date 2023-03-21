@@ -11,7 +11,7 @@ namespace DI.Installers
     {
         [SerializeField] private TouchInputSystem touchInputSystem;
         [SerializeField] private HarvestColliderCutReceiversContainer harvestColliderCutReceiversContainer;
-        [SerializeField] private HarvestBag harvestBag;
+        [SerializeField] private HarvestStack harvestStack;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private SellManager sellManager;
 
@@ -20,7 +20,7 @@ namespace DI.Installers
             Container.Bind<PlayerMovement>().FromInstance(playerMovement).AsSingle();
             Container.QueueForInject(playerMovement);
 
-            Container.Bind<HarvestBag>().FromInstance(harvestBag).AsSingle();
+            Container.Bind<HarvestStack>().FromInstance(harvestStack).AsSingle();
             Container.QueueForInject(harvestColliderCutReceiversContainer);
 
             Container.Bind<TouchInputSystem>().FromInstance(touchInputSystem).AsSingle();

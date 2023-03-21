@@ -11,7 +11,7 @@ using Utilities.Utils;
 
 namespace Player
 {
-    internal class HarvestBag : MonoBehaviour
+    internal class HarvestStack : MonoBehaviour
     {
         internal event Action<int> onHarvestBlockAddToStack;
 
@@ -42,7 +42,7 @@ namespace Player
 
         private void AddBlockToStack(WheatBlockArgs wheatBlockArgs)
         {
-            if (_blocksInStackArgs.Contains(wheatBlockArgs))
+            if (_blocksInStackArgs.Contains(wheatBlockArgs) || _blocksCount == _stackSize)
             {
                 return;
             }
@@ -64,7 +64,6 @@ namespace Player
             onHarvestBlockAddToStack?.Invoke(_blocksCount);
             if (_blocksCount == _stackSize)
             {
-                ClearSubscriptions();
                 Debug.Log("Stack us full");
             }
         }

@@ -18,7 +18,6 @@ namespace UI.Abstract
         [Space]
         [SerializeField] private UIRectangleZone joystickRectangleZone;
 
-        private float _maxKnobDistanceFromCenter;
         private Vector2 _joystickStartPosition;
 
         private Vector2 _joystickUpdatedPosition;
@@ -28,8 +27,6 @@ namespace UI.Abstract
 
         private void Start()
         {
-            _maxKnobDistanceFromCenter = Vector2.Distance(center.position, edgePoint.position);
-
             _joystickStartPosition = knobTransform.position;
             _joystickUpdatedPosition = _joystickStartPosition;
             joystickGameObject.SetActive(false);
@@ -46,7 +43,7 @@ namespace UI.Abstract
 
         private Vector2 GetKnobPositionByDirection(Vector2 direction, float distanceToCenter)
         {
-            return _joystickUpdatedPosition + direction.normalized * Mathf.Clamp(distanceToCenter, 0, _maxKnobDistanceFromCenter);
+            return _joystickUpdatedPosition + direction.normalized * Mathf.Clamp(distanceToCenter, 0, Vector2.Distance(center.position, edgePoint.position));
         }
 
         private void StartUpdateJoyctickDirection()
@@ -91,7 +88,7 @@ namespace UI.Abstract
         private void UpdateDirection(Vector3 knobPosition)
         {
             knobTransform.position = knobPosition;
-            Vector2 direction = (new Vector2(knobPosition.x, knobPosition.y) - _joystickUpdatedPosition) / _maxKnobDistanceFromCenter;
+            Vector2 direction = (new Vector2(knobPosition.x, knobPosition.y) - _joystickUpdatedPosition) / Vector2.Distance(center.position, edgePoint.position);
             UpdatePlayerDirection(direction);
         }
 

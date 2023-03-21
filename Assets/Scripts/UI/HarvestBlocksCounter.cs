@@ -46,7 +46,7 @@ namespace UI
         private PlayerSettingsConfig _playerSettingsConfig;
 
         [Inject]
-        private HarvestBag _harvestBag;
+        private HarvestStack _harvestStack;
 
         [Inject]
         private void OnConstruct()
@@ -62,12 +62,12 @@ namespace UI
 
         private void SetSubscriptions()
         {
-            _harvestBag.onHarvestBlockAddToStack += SetFillAmountAndText;
+            _harvestStack.onHarvestBlockAddToStack += SetFillAmountAndText;
         }
 
         private void ClearSubscriptions()
         {
-            _harvestBag.onHarvestBlockAddToStack -= SetFillAmountAndText;
+            _harvestStack.onHarvestBlockAddToStack -= SetFillAmountAndText;
         }
 
 #endregion
