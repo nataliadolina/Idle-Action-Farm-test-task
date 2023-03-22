@@ -2,7 +2,6 @@ using UnityEngine;
 using Zenject;
 using Systems;
 using Player;
-using System.ComponentModel;
 using Environment;
 
 namespace DI.Installers
@@ -14,6 +13,7 @@ namespace DI.Installers
         [SerializeField] private HarvestStack harvestStack;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private SellManager sellManager;
+        [SerializeField] private FieldLimits fieldLimits;
 
         public override void InstallBindings()
         {
@@ -31,6 +31,9 @@ namespace DI.Installers
 
             Container.Bind<SellManager>().FromInstance(sellManager).AsSingle();
             Container.QueueForInject(sellManager);
+
+            Container.Bind<FieldLimits>().FromInstance(fieldLimits).AsSingle();
+            Container.QueueForInject(fieldLimits);
         }
     }
 }

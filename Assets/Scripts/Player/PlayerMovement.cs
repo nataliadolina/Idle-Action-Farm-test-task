@@ -3,6 +3,7 @@ using UI.Interfaces;
 using Zenject;
 using Player.Enums;
 using System;
+using Environment;
 
 namespace Player
 {
@@ -35,7 +36,8 @@ namespace Player
 
             float speedRatio = direction.magnitude;
             playerTransform.forward = new Vector3(direction.x, 0, direction.y);
-            playerTransform.Translate(Vector3.forward * speed * speedRatio * Time.deltaTime);
+            Vector3 moveToPosition = transform.position + transform.forward * speed * speedRatio * Time.deltaTime;
+            transform.position = _fieldLimits.ClampPlayerPosition(moveToPosition);
             playerStateHandler.CurrentState = PlayerStates.Moving;
             onPlayerTransformPositionChanged?.Invoke(playerTransform.position);
         }
@@ -49,9 +51,11 @@ namespace Player
 
 #endregion
 
-#region Dependencies
+#region Injections
 
         [Inject] private IPlayerDirectionInput _directionInput;
+
+        [Inject] private FieldLimits _fieldLimits;
 
         [Inject]
         private void OnConstruct()
