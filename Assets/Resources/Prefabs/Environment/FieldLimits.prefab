@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89203ebad3897c43bba04719c037b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xLimitOffset: 2.07
-  zLimitOffset: 6.7
+  xLimitOffset: 2.2
+  zLimitOffset: 7.76
