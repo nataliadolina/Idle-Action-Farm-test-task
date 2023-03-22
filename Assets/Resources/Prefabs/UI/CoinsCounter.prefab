@@ -110,8 +110,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -179,7 +179,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2289586026811822252}
-  - component: {fileID: 337079293}
   - component: {fileID: 2289586026244040760}
   m_Layer: 5
   m_Name: CoinsCounter
@@ -209,18 +208,6 @@ RectTransform:
   m_AnchoredPosition: {x: 100.70105, y: -42.599854}
   m_SizeDelta: {x: 149, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &337079293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289586026811822255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 147c4d1e7cff8bb4b841a4977e9631e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2289586026244040760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +234,7 @@ GameObject:
   - component: {fileID: 2289586027497338654}
   - component: {fileID: 2289586027497338641}
   - component: {fileID: 53057871}
+  - component: {fileID: 2905045992794467374}
   m_Layer: 5
   m_Name: CoinsImage
   m_TagString: Untagged
@@ -324,3 +312,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tweenDuration: 0.1
+--- !u!114 &2905045992794467374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289586027497338643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147c4d1e7cff8bb4b841a4977e9631e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

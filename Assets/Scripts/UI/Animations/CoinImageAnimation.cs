@@ -10,20 +10,20 @@ namespace UI.Animations
         private float tweenDuration;
 
         private Vector3 _endScale;
+        private Vector3 _startScale;
 
         private Tween _tween;
         private bool _isCoroutineLaunched = false;
 
         private void Start()
         {
-            _endScale = transform.localScale * 1.2f;
-            _tween = CreateAnimationSequence();
+            _startScale = transform.localScale;
+            _endScale = _startScale * 1.2f;
         }
 
         private Tween CreateAnimationSequence()
         {
-            Tween myTween = transform.DOScale(_endScale, tweenDuration).SetEase(Ease.InOutQuad).SetLoops(-1, LoopType.Yoyo);
-            myTween.Pause();
+            Tween myTween = transform.DOScale(_endScale, tweenDuration).SetEase(Ease.InOutQuad).SetLoops(2, LoopType.Yoyo);
             return myTween;
         }
 
@@ -31,16 +31,16 @@ namespace UI.Animations
         {
             if (!_isCoroutineLaunched)
             {
+                _tween = CreateAnimationSequence();
                 StartCoroutine(LaunchAnimationCoroutine());
             }
         }
 
         private IEnumerator LaunchAnimationCoroutine()
         {
-            _tween.TogglePause();
             _isCoroutineLaunched = true;
-            yield return new WaitForSeconds(tweenDuration * 2);
-            _tween.TogglePause();
+            yield return _tween.WaitForKill();
+            transform.localScale = _startScale;
             _isCoroutineLaunched = false;
         }
     }

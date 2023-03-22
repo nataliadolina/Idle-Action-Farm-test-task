@@ -14,6 +14,7 @@ namespace Player
     internal class HarvestStack : MonoBehaviour
     {
         internal event Action<int> onHarvestBlockAddToStack;
+        internal event Action onStackIsFull;
 
         [SerializeField]
         private int blocksPerX;
@@ -42,8 +43,14 @@ namespace Player
 
         private void AddBlockToStack(WheatBlockArgs wheatBlockArgs)
         {
-            if (_blocksInStackArgs.Contains(wheatBlockArgs) || _blocksCount == _stackSize)
+            if (_blocksInStackArgs.Contains(wheatBlockArgs))
             {
+                return;
+            }
+
+            if (_blocksCount == _stackSize)
+            {
+                onStackIsFull?.Invoke();
                 return;
             }
 
@@ -64,7 +71,7 @@ namespace Player
             onHarvestBlockAddToStack?.Invoke(_blocksCount);
             if (_blocksCount == _stackSize)
             {
-                Debug.Log("Stack us full");
+                onStackIsFull?.Invoke();
             }
         }
 
