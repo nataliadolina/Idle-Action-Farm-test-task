@@ -1,4 +1,5 @@
 # Idle-Action-Farm-test-task
+ * Demo is on SampleScene
  * Android game. Look releases for apk.
  * Для того, чтобы разрезать пшеницу, нужно нажать кнопку Cut в правом верхнем углу. 
  * Кнопка Cut становится активной только в тех случаях, когда поблизости есть созревшая пшеница.
